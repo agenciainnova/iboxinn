@@ -112,3 +112,16 @@ export async function getUsers() {
     orderBy: { username: "asc" },
   })
 }
+export async function deleteUser(userId: string) {
+  const session = await getServerSession(authOptions)
+  if (session?.user?.name !== "admin") throw new Error("No autorizado")
+
+  const user = await prisma.user.findUnique({ where: { id: userId } })
+  if (user?.username === "admin") throw new Error("No puedes eliminar al administrador principal")
+
+  await prisma.user.delete({
+    where: { id: userId },
+  })
+
+  revalidatePath("/settings")
+}

@@ -4,6 +4,7 @@ import { redirect } from "next/navigation"
 import { getUsers, changePassword, createUser } from "../actions"
 import Link from "next/link"
 import { ArrowLeft, UserPlus, Shield, User, Key, Save } from "lucide-react"
+import { DeleteUserButton } from "@/components/DeleteUserButton"
 
 export default async function SettingsPage() {
   const session = await getServerSession(authOptions)
@@ -23,6 +24,7 @@ export default async function SettingsPage() {
 
       <div className="space-y-6">
         {/* Change Password Section */}
+        {/* ... (previous section) */}
         <section className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
           <div className="flex items-center gap-2 mb-4">
             <div className="p-2 bg-blue-100 text-blue-600 rounded-lg">
@@ -94,11 +96,16 @@ export default async function SettingsPage() {
             </section>
 
             <section className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="p-2 bg-slate-100 text-slate-600 rounded-lg">
-                  <Shield className="w-5 h-5" />
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <div className="p-2 bg-slate-100 text-slate-600 rounded-lg">
+                    <Shield className="w-5 h-5" />
+                  </div>
+                  <h2 className="text-lg font-bold text-slate-800">Usuarios Registrados</h2>
                 </div>
-                <h2 className="text-lg font-bold text-slate-800">Usuarios Registrados</h2>
+                <span className="text-xs font-bold bg-slate-100 px-3 py-1 rounded-full text-slate-600">
+                  {users.length} {users.length === 1 ? 'cuenta' : 'cuentas'}
+                </span>
               </div>
               
               <div className="space-y-2">
@@ -109,9 +116,12 @@ export default async function SettingsPage() {
                         <User className="w-4 h-4" />
                       </div>
                       <span className="font-bold text-slate-700">{u.username}</span>
+                      {u.username === "admin" && (
+                        <span className="text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-bold uppercase">SuperAdmin</span>
+                      )}
                     </div>
-                    {u.username === "admin" && (
-                      <span className="text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-bold uppercase">SuperAdmin</span>
+                    {u.username !== "admin" && (
+                      <DeleteUserButton userId={u.id} username={u.username} />
                     )}
                   </div>
                 ))}
