@@ -23,6 +23,8 @@ model Transaction {
   date        DateTime @default(now())
   concept     String
   photoUrl    String?
+  wallet      String   @default("personal") // "personal" o "trabajo"
+  userId      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

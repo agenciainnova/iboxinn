@@ -8,22 +8,39 @@ import { Download, LogOut, ReceiptText, TrendingDown, TrendingUp, Wallet } from 
 import Link from "next/link"
 import Image from "next/image"
 
-export default async function Home() {
+export default async function Home({ searchParams }: { searchParams: { caja?: string } }) {
   const session = await getServerSession(authOptions)
 
   if (!session) {
     redirect("/login")
   }
 
-  const { transactions, totalIngresos, totalEgresos, total } = await getTransactions()
+  const currentWallet = searchParams.caja === "trabajo" ? "trabajo" : "personal"
+  const { transactions, totalIngresos, totalEgresos, total } = await getTransactions(currentWallet)
 
   return (
     <main className="max-w-md mx-auto min-h-screen bg-slate-50 pb-10 sm:max-w-3xl sm:pt-6">
-      <header className="bg-blue-600 text-white p-4 rounded-b-2xl sm:rounded-3xl shadow-md mb-4 relative overflow-hidden">
+      {/* Wallet Switcher Tabs */}
+      <div className="flex bg-slate-200/50 p-1 mx-4 sm:mx-0 mt-4 sm:mt-0 mb-4 rounded-xl">
+        <Link 
+          href="/?caja=personal" 
+          className={`flex-1 text-center py-2 rounded-lg text-sm font-bold transition-all ${currentWallet === 'personal' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+        >
+          Personal
+        </Link>
+        <Link 
+          href="/?caja=trabajo" 
+          className={`flex-1 text-center py-2 rounded-lg text-sm font-bold transition-all ${currentWallet === 'trabajo' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+        >
+          Trabajo
+        </Link>
+      </div>
+
+      <header className="bg-blue-600 text-white p-4 rounded-2xl sm:rounded-3xl shadow-md mb-4 mx-4 sm:mx-0 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500 to-blue-700 opacity-50"></div>
         <div className="relative z-10 flex justify-between items-center mb-3">
           <h1 className="text-xl font-bold flex items-center">
-            <Wallet className="w-5 h-5 mr-2" /> Mi Caja
+            <Wallet className="w-5 h-5 mr-2" /> {currentWallet === 'trabajo' ? 'Caja de Trabajo' : 'Mi Caja Personal'}
           </h1>
           <div className="flex items-center gap-2">
             <span className="text-xs bg-blue-500/50 px-2.5 py-1 rounded-full">{session.user?.name}</span>
@@ -58,13 +75,13 @@ export default async function Home() {
 
       <div className="px-4 sm:px-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <TransactionForm />
+          <TransactionForm currentWallet={currentWallet} />
         </div>
 
         <div>
           <div className="flex justify-between items-center mb-3 px-1">
             <h3 className="text-base font-bold text-slate-800">Últimos Movimientos</h3>
-            <ExportButton />
+            <ExportButton currentWallet={currentWallet} />
           </div>
 
           <div className="space-y-2">

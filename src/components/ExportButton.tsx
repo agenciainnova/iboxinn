@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Download, X } from "lucide-react"
 
-export function ExportButton() {
+export function ExportButton({ currentWallet }: { currentWallet: string }) {
   const [isOpen, setIsOpen] = useState(false)
   
   // default to first day of current month
@@ -18,7 +18,7 @@ export function ExportButton() {
     const start = new Date(startDate).toISOString()
     const end = new Date(`${endDate}T23:59:59.999Z`).toISOString()
     
-    window.location.href = `/api/export?start=${start}&end=${end}`
+    window.location.href = `/api/export?start=${start}&end=${end}&wallet=${currentWallet}`
     setIsOpen(false)
   }
 

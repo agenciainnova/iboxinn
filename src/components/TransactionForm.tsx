@@ -4,7 +4,7 @@ import { useState } from "react"
 import { addTransaction } from "@/app/actions"
 import { PlusCircle, MinusCircle, Image as ImageIcon } from "lucide-react"
 
-export function TransactionForm() {
+export function TransactionForm({ currentWallet }: { currentWallet: string }) {
   const [loading, setLoading] = useState(false)
   const [photoPreview, setPhotoPreview] = useState<string | null>(null)
 
@@ -50,6 +50,8 @@ export function TransactionForm() {
           </div>
         </label>
       </div>
+
+      <input type="hidden" name="wallet" value={currentWallet} />
 
       <div className="space-y-3">
         <div>

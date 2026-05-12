@@ -7,6 +7,7 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams
     const start = searchParams.get("start")
     const end = searchParams.get("end")
+    const wallet = searchParams.get("wallet") || "personal"
 
     const dateFilter = start && end ? {
       date: {
@@ -16,7 +17,7 @@ export async function GET(request: NextRequest) {
     } : {}
 
     const transactions = await prisma.transaction.findMany({
-      where: dateFilter,
+      where: { ...dateFilter, wallet },
       orderBy: { date: "asc" },
     })
 

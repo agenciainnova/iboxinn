@@ -11,6 +11,7 @@ export async function addTransaction(formData: FormData) {
   const dateStr = formData.get("date") as string
   const date = dateStr ? new Date(dateStr) : new Date()
   const photo = formData.get("photo") as File | null
+  const wallet = (formData.get("wallet") as string) || "personal"
 
   let photoUrl = null
 
@@ -28,14 +29,16 @@ export async function addTransaction(formData: FormData) {
       concept,
       date,
       photoUrl,
+      wallet,
     },
   })
 
   revalidatePath("/")
 }
 
-export async function getTransactions() {
+export async function getTransactions(wallet: string = "personal") {
   const transactions = await prisma.transaction.findMany({
+    where: { wallet },
     orderBy: { date: "desc" },
   })
   
