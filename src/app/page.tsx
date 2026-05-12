@@ -18,71 +18,71 @@ export default async function Home() {
   const { transactions, totalIngresos, totalEgresos, total } = await getTransactions()
 
   return (
-    <main className="max-w-md mx-auto min-h-screen bg-slate-50 pb-20 sm:max-w-3xl sm:pt-10">
-      <header className="bg-blue-600 text-white p-6 rounded-b-3xl sm:rounded-3xl shadow-md mb-6 relative overflow-hidden">
+    <main className="max-w-md mx-auto min-h-screen bg-slate-50 pb-10 sm:max-w-3xl sm:pt-6">
+      <header className="bg-blue-600 text-white p-4 rounded-b-2xl sm:rounded-3xl shadow-md mb-4 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500 to-blue-700 opacity-50"></div>
-        <div className="relative z-10 flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold flex items-center">
-            <Wallet className="w-6 h-6 mr-2" /> Mi Caja
+        <div className="relative z-10 flex justify-between items-center mb-3">
+          <h1 className="text-xl font-bold flex items-center">
+            <Wallet className="w-5 h-5 mr-2" /> Mi Caja
           </h1>
-          <div className="flex items-center gap-3">
-            <span className="text-sm bg-blue-500/50 px-3 py-1 rounded-full">{session.user?.name}</span>
-            <Link href="/api/auth/signout" className="p-2 bg-blue-700/50 hover:bg-blue-800/50 rounded-full transition-colors" title="Cerrar Sesión">
+          <div className="flex items-center gap-2">
+            <span className="text-xs bg-blue-500/50 px-2.5 py-1 rounded-full">{session.user?.name}</span>
+            <Link href="/api/auth/signout" className="p-1.5 bg-blue-700/50 hover:bg-blue-800/50 rounded-full transition-colors" title="Cerrar Sesión">
               <LogOut className="w-4 h-4" />
             </Link>
           </div>
         </div>
 
-        <div className="relative z-10 text-center mb-4">
-          <p className="text-blue-100 text-sm font-medium mb-1">Balance Total</p>
-          <h2 className="text-5xl font-extrabold tracking-tight">
+        <div className="relative z-10 text-center mb-3">
+          <p className="text-blue-100 text-xs font-medium mb-0.5">Balance Total</p>
+          <h2 className="text-4xl font-extrabold tracking-tight">
             ${total.toLocaleString("es-MX", { minimumFractionDigits: 2 })}
           </h2>
         </div>
 
-        <div className="relative z-10 grid grid-cols-2 gap-4 mt-6">
-          <div className="bg-white/10 p-3 rounded-2xl backdrop-blur-sm">
-            <div className="flex items-center text-blue-100 text-xs mb-1">
+        <div className="relative z-10 grid grid-cols-2 gap-3 mt-3">
+          <div className="bg-white/10 p-2.5 rounded-xl backdrop-blur-sm">
+            <div className="flex items-center text-blue-100 text-[10px] mb-0.5 uppercase tracking-wider font-semibold">
               <TrendingUp className="w-3 h-3 mr-1" /> Ingresos
             </div>
-            <p className="text-lg font-semibold">${totalIngresos.toLocaleString("es-MX", { minimumFractionDigits: 2 })}</p>
+            <p className="text-base font-semibold">${totalIngresos.toLocaleString("es-MX", { minimumFractionDigits: 2 })}</p>
           </div>
-          <div className="bg-white/10 p-3 rounded-2xl backdrop-blur-sm">
-            <div className="flex items-center text-blue-100 text-xs mb-1">
+          <div className="bg-white/10 p-2.5 rounded-xl backdrop-blur-sm">
+            <div className="flex items-center text-blue-100 text-[10px] mb-0.5 uppercase tracking-wider font-semibold">
               <TrendingDown className="w-3 h-3 mr-1" /> Egresos
             </div>
-            <p className="text-lg font-semibold">${totalEgresos.toLocaleString("es-MX", { minimumFractionDigits: 2 })}</p>
+            <p className="text-base font-semibold">${totalEgresos.toLocaleString("es-MX", { minimumFractionDigits: 2 })}</p>
           </div>
         </div>
       </header>
 
-      <div className="px-4 sm:px-0 grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="px-4 sm:px-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <TransactionForm />
         </div>
 
         <div>
-          <div className="flex justify-between items-center mb-4 px-2">
-            <h3 className="text-lg font-bold text-slate-800">Últimos Movimientos</h3>
+          <div className="flex justify-between items-center mb-3 px-1">
+            <h3 className="text-base font-bold text-slate-800">Últimos Movimientos</h3>
             <ExportButton />
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2">
             {transactions.length === 0 ? (
-              <div className="text-center py-10 bg-white rounded-2xl border border-slate-100">
-                <ReceiptText className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-                <p className="text-slate-500 font-medium">No hay movimientos aún</p>
+              <div className="text-center py-6 bg-white rounded-xl border border-slate-100">
+                <ReceiptText className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+                <p className="text-sm text-slate-500 font-medium">No hay movimientos aún</p>
               </div>
             ) : (
               transactions.map((tx) => (
-                <div key={tx.id} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between hover:shadow-md transition-shadow">
+                <div key={tx.id} className="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex items-center justify-between hover:shadow-md transition-shadow">
                   <div className="flex items-center">
-                    <div className={`p-3 rounded-full mr-4 ${tx.type === 'ingreso' ? 'bg-emerald-100 text-emerald-600' : 'bg-rose-100 text-rose-600'}`}>
-                      {tx.type === "ingreso" ? <TrendingUp className="w-5 h-5" /> : <TrendingDown className="w-5 h-5" />}
+                    <div className={`p-2.5 rounded-full mr-3 ${tx.type === 'ingreso' ? 'bg-emerald-100 text-emerald-600' : 'bg-rose-100 text-rose-600'}`}>
+                      {tx.type === "ingreso" ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
                     </div>
                     <div>
-                      <p className="font-bold text-slate-800">{tx.concept}</p>
-                      <div className="flex items-center text-xs text-slate-500 mt-1">
+                      <p className="font-semibold text-sm text-slate-800 leading-tight">{tx.concept}</p>
+                      <div className="flex items-center text-[11px] text-slate-500 mt-0.5">
                         {tx.date.toLocaleDateString("es-MX", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
                         {tx.photoUrl && (
                           <a href={tx.photoUrl} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-500 hover:underline flex items-center">
@@ -92,7 +92,7 @@ export default async function Home() {
                       </div>
                     </div>
                   </div>
-                  <div className={`font-bold ${tx.type === 'ingreso' ? 'text-emerald-600' : 'text-slate-800'}`}>
+                  <div className={`font-bold text-sm ${tx.type === 'ingreso' ? 'text-emerald-600' : 'text-slate-800'}`}>
                     {tx.type === 'ingreso' ? '+' : '-'}${tx.amount.toLocaleString("es-MX", { minimumFractionDigits: 2 })}
                   </div>
                 </div>
