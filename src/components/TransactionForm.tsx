@@ -7,6 +7,21 @@ import { PlusCircle, MinusCircle, Image as ImageIcon } from "lucide-react"
 export function TransactionForm({ currentWallet }: { currentWallet: string }) {
   const [loading, setLoading] = useState(false)
   const [photoPreview, setPhotoPreview] = useState<string | null>(null)
+  const [amount, setAmount] = useState("")
+
+  const formatNumber = (val: string) => {
+    if (!val) return ""
+    const parts = val.split(".")
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    return parts.join(".")
+  }
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value.replace(/,/g, "")
+    if (/^\d*\.?\d*$/.test(val)) {
+      setAmount(val)
+    }
+  }
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -20,9 +35,12 @@ export function TransactionForm({ currentWallet }: { currentWallet: string }) {
   const action = async (formData: FormData) => {
     setLoading(true)
     try {
+      // Ensure we send the raw numeric value
+      formData.set("amount", amount)
       await addTransaction(formData)
       const form = document.getElementById("tx-form") as HTMLFormElement
       form.reset()
+      setAmount("")
       setPhotoPreview(null)
     } finally {
       setLoading(false)
@@ -57,14 +75,16 @@ export function TransactionForm({ currentWallet }: { currentWallet: string }) {
         <div>
           <label className="block text-xs font-bold text-slate-800 mb-0.5">Monto ($)</label>
           <input
-            type="number"
-            name="amount"
-            step="0.01"
-            min="0.01"
+            type="text"
+            inputMode="decimal"
+            name="amount_display"
+            value={formatNumber(amount)}
+            onChange={handleAmountChange}
             required
             className="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-base placeholder:text-slate-500 font-medium"
             placeholder="0.00"
           />
+          <input type="hidden" name="amount" value={amount} />
         </div>
 
         <div>
