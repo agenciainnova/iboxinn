@@ -98,15 +98,17 @@ export function TransactionForm({ currentWallet }: { currentWallet: string }) {
           />
         </div>
 
-        <div>
+        <div className="w-full">
           <label className="block text-xs font-bold text-slate-800 mb-0.5">Fecha</label>
-          <input
-            type="datetime-local"
-            name="date"
-            defaultValue={new Date().toISOString().slice(0, 16)}
-            required
-            className="w-full max-w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-sm text-slate-950 font-bold box-border"
-          />
+          <div className="w-full overflow-hidden rounded-lg">
+            <input
+              type="datetime-local"
+              name="date"
+              defaultValue={new Date().toISOString().slice(0, 16)}
+              required
+              className="w-full px-2 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-sm text-slate-950 font-bold box-border"
+            />
+          </div>
         </div>
 
         <div>
