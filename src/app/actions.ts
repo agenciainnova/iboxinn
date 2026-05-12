@@ -125,3 +125,14 @@ export async function deleteUser(userId: string) {
 
   revalidatePath("/settings")
 }
+
+export async function deleteTransaction(id: string) {
+  const session = await getServerSession(authOptions)
+  if (!session) throw new Error("No autorizado")
+
+  await prisma.transaction.delete({
+    where: { id },
+  })
+
+  revalidatePath("/")
+}

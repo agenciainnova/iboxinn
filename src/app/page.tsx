@@ -5,6 +5,7 @@ import { getTransactions } from "./actions"
 import { TransactionForm } from "@/components/TransactionForm"
 import { ExportButton } from "@/components/ExportButton"
 import { WalletTabs } from "@/components/WalletTabs"
+import { DeleteTransactionButton } from "@/components/DeleteTransactionButton"
 import { Download, LogOut, ReceiptText, TrendingDown, TrendingUp, Wallet, Shield } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
@@ -99,8 +100,11 @@ export default async function Home({ searchParams }: { searchParams: { caja?: st
                       </div>
                     </div>
                   </div>
-                  <div className={`font-extrabold text-sm ${tx.type === 'ingreso' ? 'text-emerald-700' : 'text-slate-800'}`}>
-                    {tx.type === 'ingreso' ? '+' : '-'}${tx.amount.toLocaleString("es-MX", { minimumFractionDigits: 2 })}
+                  <div className="flex items-center">
+                    <div className={`font-extrabold text-sm ${tx.type === 'ingreso' ? 'text-emerald-700' : 'text-slate-800'}`}>
+                      {tx.type === 'ingreso' ? '+' : '-'}${tx.amount.toLocaleString("es-MX", { minimumFractionDigits: 2 })}
+                    </div>
+                    <DeleteTransactionButton id={tx.id} concept={tx.concept} />
                   </div>
                 </div>
               ))
