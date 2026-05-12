@@ -55,56 +55,56 @@ export function TransactionForm({ currentWallet }: { currentWallet: string }) {
 
       <div className="space-y-3">
         <div>
-          <label className="block text-xs font-medium text-slate-600 mb-0.5">Monto ($)</label>
+          <label className="block text-xs font-bold text-slate-800 mb-0.5">Monto ($)</label>
           <input
             type="number"
             name="amount"
             step="0.01"
             min="0.01"
             required
-            className="w-full px-3 py-1.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-base"
+            className="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-base placeholder:text-slate-500 font-medium"
             placeholder="0.00"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-600 mb-0.5">Concepto</label>
+          <label className="block text-xs font-bold text-slate-800 mb-0.5">Concepto</label>
           <input
             type="text"
             name="concept"
             required
-            className="w-full px-3 py-1.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-sm"
+            className="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-sm placeholder:text-slate-500 font-medium"
             placeholder="Ej. Venta de producto, Pago de luz..."
           />
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-600 mb-0.5">Fecha</label>
+          <label className="block text-xs font-bold text-slate-800 mb-0.5">Fecha</label>
           <input
             type="datetime-local"
             name="date"
             defaultValue={new Date().toISOString().slice(0, 16)}
             required
-            className="w-full px-3 py-1.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-sm"
+            className="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-sm font-medium"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-600 mb-0.5">Comprobante (Foto)</label>
-          <div className="flex justify-center px-4 py-2 border-2 border-slate-200 border-dashed rounded-lg hover:border-blue-400 transition-colors cursor-pointer bg-slate-50 relative overflow-hidden">
+          <label className="block text-xs font-bold text-slate-800 mb-0.5">Comprobante (Foto)</label>
+          <div className="flex justify-center px-4 py-2 border-2 border-slate-300 border-dashed rounded-lg hover:border-blue-400 transition-colors cursor-pointer bg-slate-50 relative overflow-hidden">
             {photoPreview ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={photoPreview} alt="Preview" className="absolute inset-0 w-full h-full object-cover opacity-60" />
             ) : null}
             <div className="space-y-0.5 text-center relative z-10">
-              <ImageIcon className="mx-auto h-5 w-5 text-slate-400" />
-              <div className="flex text-[11px] text-slate-600 justify-center">
-                <label className="relative cursor-pointer rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+              <ImageIcon className="mx-auto h-5 w-5 text-slate-600" />
+              <div className="flex text-[11px] text-slate-800 justify-center">
+                <label className="relative cursor-pointer rounded-md font-bold text-blue-700 hover:text-blue-800 focus-within:outline-none">
                   <span>Subir una foto</span>
                   <input id="file-upload" name="photo" type="file" accept="image/*" capture="environment" className="sr-only" onChange={handlePhotoChange} />
                 </label>
               </div>
-              <p className="text-[9px] text-slate-500">PNG/JPG hasta 10MB</p>
+              <p className="text-[10px] text-slate-600 font-medium">PNG/JPG hasta 10MB</p>
             </div>
           </div>
         </div>

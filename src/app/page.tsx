@@ -74,8 +74,8 @@ export default async function Home({ searchParams }: { searchParams: { caja?: st
           <div className="space-y-2">
             {transactions.length === 0 ? (
               <div className="text-center py-6 bg-white rounded-xl border border-slate-100">
-                <ReceiptText className="w-8 h-8 text-slate-300 mx-auto mb-2" />
-                <p className="text-sm text-slate-500 font-medium">No hay movimientos aún</p>
+                <ReceiptText className="w-8 h-8 text-slate-400 mx-auto mb-2" />
+                <p className="text-sm text-slate-700 font-bold">No hay movimientos aún</p>
               </div>
             ) : (
               transactions.map((tx) => (
@@ -85,18 +85,18 @@ export default async function Home({ searchParams }: { searchParams: { caja?: st
                       {tx.type === "ingreso" ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
                     </div>
                     <div>
-                      <p className="font-semibold text-sm text-slate-800 leading-tight">{tx.concept}</p>
-                      <div className="flex items-center text-[11px] text-slate-500 mt-0.5">
+                      <p className="font-bold text-sm text-slate-800 leading-tight">{tx.concept}</p>
+                      <div className="flex items-center text-[11px] text-slate-600 mt-0.5 font-medium">
                         {tx.date.toLocaleDateString("es-MX", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
                         {tx.photoUrl && (
-                          <a href={tx.photoUrl} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-500 hover:underline flex items-center">
+                          <a href={tx.photoUrl} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-600 hover:underline flex items-center font-bold">
                             Ver foto
                           </a>
                         )}
                       </div>
                     </div>
                   </div>
-                  <div className={`font-bold text-sm ${tx.type === 'ingreso' ? 'text-emerald-600' : 'text-slate-800'}`}>
+                  <div className={`font-extrabold text-sm ${tx.type === 'ingreso' ? 'text-emerald-700' : 'text-slate-800'}`}>
                     {tx.type === 'ingreso' ? '+' : '-'}${tx.amount.toLocaleString("es-MX", { minimumFractionDigits: 2 })}
                   </div>
                 </div>

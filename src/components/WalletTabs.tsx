@@ -13,14 +13,14 @@ export function WalletTabs() {
       <Link 
         href="/?caja=personal" 
         replace
-        className={`flex-1 text-center py-2 rounded-lg text-sm font-bold transition-all ${currentWallet === 'personal' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+        className={`flex-1 text-center py-2 rounded-lg text-sm font-bold transition-all ${currentWallet === 'personal' ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-600 hover:text-slate-800'}`}
       >
         Personal
       </Link>
       <Link 
         href="/?caja=trabajo" 
         replace
-        className={`flex-1 text-center py-2 rounded-lg text-sm font-bold transition-all ${currentWallet === 'trabajo' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+        className={`flex-1 text-center py-2 rounded-lg text-sm font-bold transition-all ${currentWallet === 'trabajo' ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-600 hover:text-slate-800'}`}
       >
         Trabajo
       </Link>
