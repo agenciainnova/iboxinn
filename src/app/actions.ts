@@ -3,6 +3,9 @@
 import { prisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
 import { put } from "@vercel/blob"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
+import bcrypt from "bcryptjs"
 
 export async function addTransaction(formData: FormData) {
   const type = formData.get("type") as string
@@ -58,4 +61,55 @@ export async function getTransactions(wallet: string = "personal") {
     totalEgresos,
     total,
   }
+}
+
+export async function changePassword(formData: FormData) {
+  const session = await getServerSession(authOptions)
+  if (!session?.user) throw new Error("No autorizado")
+
+  const newPassword = formData.get("newPassword") as string
+  if (!newPassword || newPassword.length < 6) {
+    throw new Error("La contraseña debe tener al menos 6 caracteres")
+  }
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10)
+
+  await prisma.user.update({
+    where: { username: session.user.name as string },
+    data: { password: hashedPassword },
+  })
+
+  return { success: true }
+}
+
+export async function createUser(formData: FormData) {
+  const session = await getServerSession(authOptions)
+  if (session?.user?.name !== "admin") throw new Error("Solo el administrador puede crear usuarios")
+
+  const username = formData.get("username") as string
+  const password = formData.get("password") as string
+
+  if (!username || !password) throw new Error("Campos requeridos")
+
+  const hashedPassword = await bcrypt.hash(password, 10)
+
+  await prisma.user.create({
+    data: {
+      username,
+      password: hashedPassword,
+    },
+  })
+
+  revalidatePath("/settings")
+  return { success: true }
+}
+
+export async function getUsers() {
+  const session = await getServerSession(authOptions)
+  if (session?.user?.name !== "admin") return []
+
+  return prisma.user.findMany({
+    select: { id: true, username: true },
+    orderBy: { username: "asc" },
+  })
 }

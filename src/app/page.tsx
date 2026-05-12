@@ -5,7 +5,7 @@ import { getTransactions } from "./actions"
 import { TransactionForm } from "@/components/TransactionForm"
 import { ExportButton } from "@/components/ExportButton"
 import { WalletTabs } from "@/components/WalletTabs"
-import { Download, LogOut, ReceiptText, TrendingDown, TrendingUp, Wallet } from "lucide-react"
+import { Download, LogOut, ReceiptText, TrendingDown, TrendingUp, Wallet, Shield } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -30,7 +30,10 @@ export default async function Home({ searchParams }: { searchParams: { caja?: st
             <Wallet className="w-5 h-5 mr-2" /> {currentWallet === 'trabajo' ? 'Caja de Trabajo' : 'Mi Caja Personal'}
           </h1>
           <div className="flex items-center gap-2">
-            <span className="text-xs bg-blue-500/50 px-2.5 py-1 rounded-full">{session.user?.name}</span>
+            <span className="text-xs bg-blue-500/50 px-2.5 py-1 rounded-full font-bold">{session.user?.name}</span>
+            <Link href="/settings" className="p-1.5 bg-blue-700/50 hover:bg-blue-800/50 rounded-full transition-colors" title="Ajustes">
+              <Shield className="w-4 h-4" />
+            </Link>
             <Link href="/api/auth/signout" className="p-1.5 bg-blue-700/50 hover:bg-blue-800/50 rounded-full transition-colors" title="Cerrar Sesión">
               <LogOut className="w-4 h-4" />
             </Link>
