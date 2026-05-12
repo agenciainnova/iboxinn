@@ -91,20 +91,20 @@ export function TransactionForm({ currentWallet }: { currentWallet: string }) {
 
         <div>
           <label className="block text-xs font-medium text-slate-600 mb-0.5">Comprobante (Foto)</label>
-          <div className="mt-1 flex justify-center px-4 pt-3 pb-4 border-2 border-slate-200 border-dashed rounded-lg hover:border-blue-400 transition-colors cursor-pointer bg-slate-50 relative overflow-hidden">
+          <div className="flex justify-center px-4 py-2 border-2 border-slate-200 border-dashed rounded-lg hover:border-blue-400 transition-colors cursor-pointer bg-slate-50 relative overflow-hidden">
             {photoPreview ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={photoPreview} alt="Preview" className="absolute inset-0 w-full h-full object-cover opacity-60" />
             ) : null}
-            <div className="space-y-1 text-center relative z-10">
-              <ImageIcon className="mx-auto h-8 w-8 text-slate-400" />
+            <div className="space-y-0.5 text-center relative z-10">
+              <ImageIcon className="mx-auto h-5 w-5 text-slate-400" />
               <div className="flex text-[11px] text-slate-600 justify-center">
                 <label className="relative cursor-pointer rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
                   <span>Subir una foto</span>
                   <input id="file-upload" name="photo" type="file" accept="image/*" capture="environment" className="sr-only" onChange={handlePhotoChange} />
                 </label>
               </div>
-              <p className="text-[10px] text-slate-500">PNG, JPG, GIF hasta 10MB</p>
+              <p className="text-[9px] text-slate-500">PNG/JPG hasta 10MB</p>
             </div>
           </div>
         </div>
@@ -113,7 +113,7 @@ export function TransactionForm({ currentWallet }: { currentWallet: string }) {
       <button
         type="submit"
         disabled={loading}
-        className="mt-4 w-full bg-blue-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-all active:scale-[0.98] disabled:opacity-70 flex justify-center items-center text-sm"
+        className="mt-3 w-full bg-blue-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-all active:scale-[0.98] disabled:opacity-70 flex justify-center items-center text-sm"
       >
         {loading ? (
           <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
