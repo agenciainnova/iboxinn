@@ -81,7 +81,7 @@ export function TransactionForm({ currentWallet }: { currentWallet: string }) {
             value={formatNumber(amount)}
             onChange={handleAmountChange}
             required
-            className="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-base placeholder:text-slate-500 font-medium"
+            className="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-base text-slate-950 placeholder:text-slate-500 font-bold"
             placeholder="0.00"
           />
           <input type="hidden" name="amount" value={amount} />
@@ -93,7 +93,7 @@ export function TransactionForm({ currentWallet }: { currentWallet: string }) {
             type="text"
             name="concept"
             required
-            className="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-sm placeholder:text-slate-500 font-medium"
+            className="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-sm text-slate-950 placeholder:text-slate-500 font-bold"
             placeholder="Ej. Venta de producto, Pago de luz..."
           />
         </div>
@@ -105,7 +105,7 @@ export function TransactionForm({ currentWallet }: { currentWallet: string }) {
             name="date"
             defaultValue={new Date().toISOString().slice(0, 16)}
             required
-            className="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-sm font-medium"
+            className="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow text-sm text-slate-950 font-bold"
           />
         </div>
 
