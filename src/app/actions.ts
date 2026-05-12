@@ -79,7 +79,7 @@ export async function changePassword(formData: FormData) {
     data: { password: hashedPassword },
   })
 
-  return { success: true }
+  revalidatePath("/settings")
 }
 
 export async function createUser(formData: FormData) {
@@ -101,7 +101,6 @@ export async function createUser(formData: FormData) {
   })
 
   revalidatePath("/settings")
-  return { success: true }
 }
 
 export async function getUsers() {
