@@ -3,6 +3,7 @@ import { authOptions } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { getTransactions } from "./actions"
 import { TransactionForm } from "@/components/TransactionForm"
+import { ExportButton } from "@/components/ExportButton"
 import { Download, LogOut, ReceiptText, TrendingDown, TrendingUp, Wallet } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
@@ -63,12 +64,7 @@ export default async function Home() {
         <div>
           <div className="flex justify-between items-center mb-4 px-2">
             <h3 className="text-lg font-bold text-slate-800">Últimos Movimientos</h3>
-            <a 
-              href="/api/export" 
-              className="flex items-center text-sm text-blue-600 font-medium hover:text-blue-700 bg-blue-50 px-3 py-1.5 rounded-full transition-colors"
-            >
-              <Download className="w-4 h-4 mr-1" /> Excel
-            </a>
+            <ExportButton />
           </div>
 
           <div className="space-y-3">
